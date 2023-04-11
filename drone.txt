@@ -1,0 +1,95 @@
+use dronedb
+
+
+db.createCollection("kuvat")
+
+db.kuvat.insertOne({
+  "id": 1,
+  "kuvan_nimi": "kuva1.jpg",
+  "sijainti_tiedostojarjestelma": "/kuvat/kuva1.jpg",
+  "paikkatieto": { "lat": 60.1234, "lon": 24.5678 },
+  "tallennusajankohta": ISODate("2023-04-11T12:34:56Z"),
+  "dronen_nimi": "DJI Phantom 4",
+  "kuvaajan_etunimi": "Matti",
+  "kuvaajan_sukunimi": "Meikäläinen"
+})
+
+db.kuvat.insertOne({
+  "id": 2,
+  "kuvan_nimi": "kuva2.jpg",
+  "sijainti_tiedostojarjestelma": "/kuvat/kuva2.jpg",
+  "paikkatieto": { "lat": 10.1234, "lon": 100.5678 },
+  "tallennusajankohta": ISODate("2022-05-11T13:22:56Z"),
+  "dronen_nimi": "Yamaha Dt",
+  "kuvaajan_etunimi": "Tarja",
+  "kuvaajan_sukunimi": "Halonen"
+})
+
+db.kuvat.insertMany([
+
+  {
+    "id": 1,
+    "kuvan_nimi": "kuva1.jpg",
+    "sijainti_tiedostojarjestelma": "/kuvat/kuva1.jpg",
+    "paikkatieto": { "lat": 60.1234, "lon": 24.5678 },
+    "tallennusajankohta": ISODate("2023-04-11T12:34:56Z"),
+    "dronen_nimi": "DJI Phantom 4",
+    "kuvaajan_etunimi": "Matti",
+    "kuvaajan_sukunimi": "Meikäläinen"
+  },
+  {
+    "id": 2,
+    "kuvan_nimi": "kuva2.jpg",
+    "sijainti_tiedostojarjestelma": "/kuvat/kuva2.jpg",
+    "paikkatieto": { "lat": 10.1234, "lon": 100.5678 },
+    "tallennusajankohta": ISODate("2022-05-11T13:22:56Z"),
+    "dronen_nimi": "Yamaha Dt",
+    "kuvaajan_etunimi": "Tarja",
+    "kuvaajan_sukunimi": "Halonen"
+  },
+  {
+    "id": 3,
+    "kuvan_nimi": "kuva3.jpg",
+    "sijainti_tiedostojarjestelma": "/kuvat/kuva3.jpg",
+    "paikkatieto": { "lat": 60.1699, "lon": 24.9384 },
+    "tallennusajankohta": ISODate("2000-02-16T10:35:12Z"),
+    "dronen_nimi": "Salama Mcqueen",
+    "kuvaajan_etunimi": "Sauli",
+    "kuvaajan_sukunimi": "Väinämöinen"
+  },
+  {
+    "id": 4,
+    "kuvan_nimi": "kuva4.jpg",
+    "sijainti_tiedostojarjestelma": "/kuvat/kuva4.jpg",
+    "paikkatieto": { "lat": 70.1699, "lon": 80.9384 },
+    "tallennusajankohta": ISODate("1997-02-16T10:35:12Z"),
+    "dronen_nimi": "Nissan Primera",
+    "kuvaajan_etunimi": "Martti",
+    "kuvaajan_sukunimi": "Ahtisaari"
+  },
+  {
+    "id": 5,
+    "kuvan_nimi": "kuva5.jpg",
+    "sijainti_tiedostojarjestelma": "/kuvat/kuva5.jpg",
+    "paikkatieto": { "lat": 70.1699, "lon": 80.9384 },
+    "tallennusajankohta": ISODate("1992-02-16T10:35:12Z"),
+    "dronen_nimi": "Yamaha Dt",
+    "kuvaajan_etunimi": "Martti",
+    "kuvaajan_sukunimi": "Ahtisaari"
+  }
+  ]);
+
+
+
+db.kuvat.createIndex({ "tallennusajankohta": 1 })                        // tallennusajankohta-kentän indeksi
+db.kuvat.createIndex({ "kuvaajan_etunimi": 1, "kuvaajan_sukunimi": 1 })  // kuvaajan etunimen ja sukunimen indeksi
+db.kuvat.createIndex({ "dronen_nimi": 1 })                               // dronen nimen indeksi
+
+db.kuvat.find({ "tallennusajankohta": ISODate("2023-04-11") })
+
+db.kuvat.findOne({ "kuvan_nimi": "kuva3.jpg" })
+
+
+db.kuvat.find({ "dronen_nimi": "Yamaha Dt" })
+
+db.kuvat.drop()
